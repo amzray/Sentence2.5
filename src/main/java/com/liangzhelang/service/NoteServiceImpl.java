@@ -24,8 +24,8 @@ public class NoteServiceImpl implements NoteService{
 	private SentenceMapper sentenceMapper;
 	
 	
-	public Integer add(Sentence s) {
-
+	@Override
+    public Integer add(Sentence s) {
         Integer i = sentenceMapper.insert(s);
         if(i==1){
             LOGGER.info("成功添加了一条句子：" + MyJson.obj2Str(s));
@@ -34,7 +34,6 @@ public class NoteServiceImpl implements NoteService{
             LOGGER.error("未能添加句子：" + MyJson.obj2Str(s));
         }
         return i;
-
 	}
 
 	

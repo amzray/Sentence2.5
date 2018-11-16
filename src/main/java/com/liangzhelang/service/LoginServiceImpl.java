@@ -43,7 +43,7 @@ public class LoginServiceImpl implements LoginService{
 		List<Language> li = languageMapper.selectList(new QueryWrapper<Language>());
 		String str = MyJson.obj2Str(li);
 		// TODO: 2018/11/16 Exception?
-		LOGGER.info("LoginServiceImpl.getLangsJson() 获取了语言类型列表的Json");
+		LOGGER.info("获取了语言类型列表的Json");
 		return str;
 	}
 
@@ -52,7 +52,7 @@ public class LoginServiceImpl implements LoginService{
 		List<Type> li = typeMapper.selectList(new QueryWrapper<Type>());
 		String str = MyJson.obj2Str(li);
 		// TODO: 2018/11/16 Exception?
-		LOGGER.info("LoginServiceImpl.getTypesJson() 获取了体裁类型列表的Json");
+		LOGGER.info("获取了体裁类型列表的Json");
 		return str;
 	}
 

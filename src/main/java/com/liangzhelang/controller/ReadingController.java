@@ -4,6 +4,8 @@ import com.liangzhelang.entity.Sentence;
 import com.liangzhelang.service.ReadingService;
 import com.liangzhelang.util.Encoding;
 import com.liangzhelang.util.Page;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +19,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @Controller
 public class ReadingController {
-	
+	private static Logger LOGGER = LoggerFactory.getLogger(ReadingController.class);
+
 	@Autowired
 	private ReadingService readingService;
 	
@@ -39,8 +42,10 @@ public class ReadingController {
 //		}
 		//没有cuurPage请求参数时（从索引跳转来）默认跳转到第一页
 		if(currPage==null) {
-			return "redirect:/reading?currPage=1";// TODO: 2018/11/15 重定向有所不同？
+			LOGGER.info("默认进入阅读页面的第一页");
+			return "redirect:/reading?currPage=1";
 		}
+		LOGGER.info("进入阅读页面");
 		return "reading";
 	}
 
@@ -75,10 +80,14 @@ public class ReadingController {
 			sentence.setTypeId(typeId);
 		}
 
+
 		Integer totalRecord = readingService.getSentencesCount(sentence);
 		Page<Sentence> p = new Page<Sentence>(currPage, readingPageSize, totalRecord);
-		
-		return readingService.getSentencesInPage(p, sentence);
+
+		// TODO: 2018/11/16 Exception?
+		p = readingService.getSentencesInPage(p, sentence);
+		LOGGER.info("将分页查询的结果填充进页面，返回到前端");
+		return p;
 	}
 	
 	
