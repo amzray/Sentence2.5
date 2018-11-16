@@ -1,0 +1,13 @@
+form{font-size:17px; padding:1% 0% 2%;}
+#noteform{margin-top:1%; padding:3% 1% 2%;}
+#prompt{padding-top:0.4rem;color:red}
+input[type=text]{height:1.8rem; background-color:rgba(255,255,255,0.5);}
+label{height:12%; text-align:center;} 
+select{margin:auto; height:1.8rem; width:6rem; background-color:rgba(255,255,255,0.5)}
+textarea{width:100%; background-color:rgba(255,255,255,0.5);}
+textarea[name=text]{height:8rem;}
+textarea[name=reflection]{height:3rem;}
+.text1{width:80%;}
+.text2{width:90%;}
+.row{margin:auto; line-height:100% }
+.row1{margin-top:2%}
