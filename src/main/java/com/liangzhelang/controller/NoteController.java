@@ -29,7 +29,6 @@ public class NoteController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public String notePost(Model model, Sentence s) {
-		System.out.println(MyJson.obj2Str(s));
 		Integer result = noteService.add(s);
 		model.addAttribute("status", result);
 		return "note";

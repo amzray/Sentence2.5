@@ -9,6 +9,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.liangzhelang.dao.SentenceMapper;
 import com.liangzhelang.entity.Sentence;
 import com.liangzhelang.util.Page;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
@@ -16,12 +18,16 @@ import org.springframework.stereotype.*;
 @Service
 public class ReadingServiceImpl implements ReadingService{
 
+	private static Logger LOGGER = LoggerFactory.getLogger(ReadingServiceImpl.class);
+
 	@Autowired
 	private SentenceMapper sentenceMapper;
 	
+	@Override
 	public Integer getSentencesCount(Sentence condition) {
 		QueryWrapper<Sentence> wrapper = this.generateWrapper(condition);
 		Integer i = sentenceMapper.selectCount(wrapper);
+		LOGGER.info("成功获取了数据库所有句子记录的数量：" +i);
 		return i;
 	}
 
@@ -31,6 +37,7 @@ public class ReadingServiceImpl implements ReadingService{
 		return wrapper;
 	}
 
+	@Override
 	public Page<Sentence> getSentencesInPage(Page<Sentence> p, Sentence condition) {
 		QueryWrapper<Sentence> wrapper = new QueryWrapper<Sentence>();
 		//逆序
@@ -38,6 +45,7 @@ public class ReadingServiceImpl implements ReadingService{
 		//分页
 		wrapper.last("LIMIT "+p.getStartRow()+", " +p.getPageSize());
 		p.setList(sentenceMapper.selectList(wrapper));
+		LOGGER.info("成功获取了分页查询的数据");
 		return p;
 	}
 
