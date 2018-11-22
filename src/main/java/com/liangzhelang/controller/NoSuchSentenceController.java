@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/nss")
 @Controller
 public class NoSuchSentenceController {
-	private static Logger LOGGER = LoggerFactory.getLogger(NoSuchSentenceController.class);
+	private static Logger LOGGER = LoggerFactory.getLogger(NoSuchSentenceController
+			.class);
 
 
 	@RequestMapping(method=RequestMethod.GET)

@@ -1,7 +1,6 @@
 package com.liangzhelang;
 
-import com.liangzhelang.entity.Sentence;
-import com.liangzhelang.service.OneService;
+import com.liangzhelang.service.SentenceService;
 import com.liangzhelang.util.MyJson;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,13 +10,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class OneServiceTester {
+public class SentenceServiceTester {
     @Autowired
-    OneService oneService;
+    SentenceService sentenceService;
 
     @Test
     public void randomOneTest(){
-        Integer i  = oneService.randomOneId();
+        Integer i  = sentenceService.randomOneId();
         System.out.println(MyJson.obj2Str(i));
     }
+
+
 }

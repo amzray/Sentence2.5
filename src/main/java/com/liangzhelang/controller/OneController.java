@@ -1,7 +1,7 @@
 package com.liangzhelang.controller;
 
 import com.liangzhelang.entity.Sentence;
-import com.liangzhelang.service.OneService;
+import com.liangzhelang.service.SentenceService;
 import com.liangzhelang.util.MyJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,7 @@ public class OneController {
 	private static Logger LOGGER = LoggerFactory.getLogger(OneController.class);
 
 	@Autowired
-	private OneService oneService;
+	private SentenceService sentenceService;
 
 	@RequestMapping(value = "/one", method = GET)
 	public String one(HttpSession session, @RequestParam(required=false) Integer sid,  Model model) {
@@ -31,7 +31,7 @@ public class OneController {
 		
 		if(sid==null) {
 			//随机查看句子
-			sid = oneService.randomOneId();
+			sid = sentenceService.randomOneId();
 			//数据库中没有句子
 			if(sid==-1){
 				//跳转到无此句页面
@@ -52,7 +52,7 @@ public class OneController {
 	@ResponseBody
 	public Sentence sentenceContent(
 		@RequestParam Integer sid) {
-		Sentence s = oneService.selectOne(sid);
+		Sentence s = sentenceService.getById(sid);
 		if(s!=null){
 			LOGGER.info("取得到句子内容："+ MyJson.obj2Str(s));
 		}else{// TODO: 2018/11/16 Exception?
@@ -64,7 +64,8 @@ public class OneController {
 
 	@RequestMapping(value = "/update", method = POST)
 	public String updateSentence(Model model, Sentence s) {
-		Integer result = oneService.updateOne(s);
+		//todo 更新结果用int还是boolean?
+		Integer result = (sentenceService.updateById(s))?0:1;
 		if(result==1){
 			LOGGER.info("成功更新了一条句子：");
 		}else{
@@ -80,14 +81,14 @@ public class OneController {
 	@RequestMapping("/delete")
     @ResponseBody
 	public Integer deleteSentence(Model model, @RequestParam Integer sid) {
-		Integer i = oneService.deleteOne(sid);
-		if(i==1){
+		Integer result = (sentenceService.removeById(sid))?0:1;
+		if(result==1){
 			LOGGER.info("成功删除了一条句子：");
 		}else{
 			// TODO: 2018/11/16 Exception?
 			LOGGER.error("未能删除句子：");
 		}
 		LOGGER.info("发送状态码到前端");
-		return i;
+		return result;
 	}
 }
