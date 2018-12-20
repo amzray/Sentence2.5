@@ -11,16 +11,8 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  *
  */
 @SpringBootApplication
-@MapperScan("com.liangzhelang.dao")
-
-public class App  extends SpringBootServletInitializer{
-
-    //继承并重写这个才能部署到外部tomcat
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(App.class);
-    }
-
+@MapperScan("com.liangzhelang.*.mapper")
+public class App{
     public static void main( String[] args )
     {
         SpringApplication.run(App.class, args);

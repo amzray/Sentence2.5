@@ -1,13 +1,10 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/notedev?useUnicode=true&characterEncoding=utf8&serverTimezone=Hongkong&useSSL=false
+    url: jdbc:mysql://localhost:3306/note?useUnicode=true&characterEncoding=utf8&serverTimezone=Hongkong&useSSL=false
     username: root
     password: 9ol8ik
-  thymeleaf:
-    cache: false
-    enabled: false
-  mvc:
-    view:
-      prefix: WEB-INF/view/
-      suffix: .jsp
+
+logging:
+  level:
+    com.liangzhelang: debug
